@@ -7,7 +7,7 @@ import scala.io.Source
 
 /**
   * Created by lulei on 2017/12/19.
-  * scala -cp gitcodesbt_2.11-1.0.jar stream.SaleSimulation /app/bigdata/log/abc.txt 9999 1000
+  * scala -cp sparkapp_2.11-1.0.jar stream.SaleSimulation /app/bigdata/log/abc.txt 9999 1000
   */
 object SaleSimulation {
   def index(length:Int) = {

@@ -1,1 +1,1 @@
-spark-submit --class "HdfsWordCount" --master local[*] gitcodesbt_2.11-1.0.jar
+spark-submit --class "HdfsWordCount" --master local[*] sparkapp_2.11-1.0.jar

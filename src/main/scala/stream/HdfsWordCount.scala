@@ -5,7 +5,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by lulei on 2017/12/19.
-  *  spark-submit --class "stream.HdfsWordCount" --master local[*] gitcodesbt_2.11-1.0.jar
+  *  spark-submit --class "stream.HdfsWordCount" --master local[*] sparkapp_2.11-1.0.jar
   */
 object HdfsWordCount {
   def main(args: Array[String]): Unit = {

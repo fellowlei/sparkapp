@@ -6,7 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by lulei on 2017/12/19.
-  * spark-submit --class "stream.NetworkWordCount" --master local[*] gitcodesbt_2.11-1.0.jar 127.0.0.1 9999
+  * spark-submit --class "stream.NetworkWordCount" --master local[*] sparkapp_2.11-1.0.jar 127.0.0.1 9999
   */
 object NetworkWordCount {
   def main(args: Array[String]): Unit = {
