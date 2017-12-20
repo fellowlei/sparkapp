@@ -6,6 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by lulei on 2017/12/19.
+  * spark-submit --class "sql.DataFrameTest" --master local[*] sparkapp_2.11-1.0.jar
   */
 object DataFrameTest {
   def main(args: Array[String]): Unit = {
@@ -17,7 +18,7 @@ object DataFrameTest {
     val conf = new SparkConf().setAppName("DataFrameTest").setMaster("local[*]")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val df = sqlContext.read.json("people.json")
+    val df = sqlContext.read.json("data/people.json")
 
     //查看df中的数据
     df.show()

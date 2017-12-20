@@ -5,6 +5,7 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by lulei on 2017/12/19.
+  * spark-submit --class "sql.MovieDataStatistic" --master local[*] sparkapp_2.11-1.0.jar
   */
 object MovieDataStatistic {
   case class Rating(userId:Int,movieId:Int,rating:Double)
@@ -54,12 +55,34 @@ object MovieDataStatistic {
     // 评论电影最多的用户id
     sqlContext.sql("select userId,count(*) as count from ratings group by userId order by count desc ").show(1)
     val userIdCountDf = ratingsDF.groupBy("userId").count()
-    userIdCountDf.join(userIdCountDf.agg(max("count").alias("max_count")),$"count".equalTo($"max_Count")).select("userId").show(1)
+    userIdCountDf.join(userIdCountDf.agg(max("count").alias("max_count"))
+      ,$"count".equalTo($"max_Count")).select("userId").show(1)
 
     // 被用户评论最多的电影id、title
     val movieIdGroupDF = ratingsDF.groupBy("movieId").count();
-    val movieCountDf = movieIdGroupDF.join(movieIdGroupDF.agg(max("count").alias("max_count"))).filter($"count".equalTo($"max_count"))
+    val movieCountDf = movieIdGroupDF.join(movieIdGroupDF.agg(max("count").alias("max_count")))
+      .filter($"count".equalTo($"max_count"))
     //星球大战是被用户评论最多的电影
+    movieCountDf.join(movieDf).filter($"movieId".equalTo($"id")).select("movieId","title","releaseDate").show()
+
+    // 评论电影年龄最小者、最大者
+    // 年龄最大的73岁，最小的7岁
+    ratingsDF.join(userDf,ratingsDF("userId").equalTo(userDf("id")))
+      .agg(min($"age").alias("min_age"),max($"age").alias("max_age"))
+        .join(userDf,$"age".isin($"min_age",$"max_age"))
+        .select("id","age","gender").show(2)
+
+    // 25至30岁的用户欢迎的电影
+    userDf.filter($"age".between(25,30)).join(ratingsDF,$"id".equalTo($"userid"))
+        .select("userId","movieId","rating").join(movieDf,$"rating".equalTo(5))
+        .select("movieId","title").show(10)
+
+    // 最受用户喜爱的电影
+    ratingsDF.groupBy("movieId").agg(avg("rating").alias("avg_rate"))
+        .sort($"avg_rate".desc).limit(10)
+        .join(movieDf,$"movieId".equalTo($"id"))
+        .select("title").show(false)
+
 
 
 

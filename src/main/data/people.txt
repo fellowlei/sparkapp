@@ -1,0 +1,6 @@
+1,Ganymede,32
+2, Lilei, 19
+3, Lily, 25
+4, Hanmeimei, 25
+5, Lucy, 37
+6, wcc, 4
