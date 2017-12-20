@@ -16,7 +16,7 @@ object DataFrameTest2 {
     val conf = new SparkConf().setAppName("DataFrameTest2")
     val sc = new SparkContext(conf)
     val sqlContext = new SQLContext(sc)
-    val df = sqlContext.read.json("people.json")
+    val df = sqlContext.read.json("data/people.json")
 
     df.registerTempTable("people")
 

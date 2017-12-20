@@ -13,7 +13,7 @@ object HdfsWordCount {
     val sc = new SparkContext(conf)
     val ssc = new StreamingContext(sc,Seconds(20))
 
-    val lines = ssc.textFileStream("/app/bigdata/log/abc.txt")
+    val lines = ssc.textFileStream("data/abc.txt")
     val words = lines.flatMap(_.split(" "))
     val wordCounts = words.map(x =>(x,1)).reduceByKey(_ + _)
     wordCounts.print()

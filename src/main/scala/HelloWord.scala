@@ -6,7 +6,7 @@ import org.apache.spark.{SparkConf, SparkContext}
   */
 object HelloWord {
   def main(args: Array[String]): Unit = {
-    val logFile = "/app/bigdata/log/test.log"
+    val logFile = "data/test.log"
     val conf = new SparkConf().setAppName("Simple App").setMaster("local")
     val sc = new SparkContext(conf)
     val log = sc.textFile(logFile,2).cache()
