@@ -19,11 +19,11 @@ object MysqlTest {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("MysqlTest").setMaster("local[*]")
     //序列化
-    conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
-    conf.set("spark.kryoserializer.buffer", "256m")
-    conf.set("spark.kryoserializer.buffer.max", "2046m")
-    conf.set("spark.akka.frameSize", "500")
-    conf.set("spark.rpc.askTimeout", "30")
+//    conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
+//    conf.set("spark.kryoserializer.buffer", "256m")
+//    conf.set("spark.kryoserializer.buffer.max", "2046m")
+//    conf.set("spark.akka.frameSize", "500")
+//    conf.set("spark.rpc.askTimeout", "30")
 
     //获取context
     val sc = new SparkContext(conf)
