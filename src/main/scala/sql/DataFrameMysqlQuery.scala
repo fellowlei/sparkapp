@@ -5,9 +5,9 @@ import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by lulei on 2017/12/20.
-  * spark-submit   --class "sql.MysqlDataFrameTest" --master local[*] sparkapp_2.11-1.0.jar
+  * spark-submit   --class "sql.DataFrameMysqlQuery" --master local[*] sparkapp_2.11-1.0.jar
   */
-object MysqlDataFrameTest {
+object DataFrameMysqlQuery {
   def main(args: Array[String]): Unit = {
     val conf =new SparkConf().setAppName("MysqlDataFrameTest").setMaster("local[*]")
 
@@ -22,7 +22,10 @@ object MysqlDataFrameTest {
     prop.setProperty("password","1")
     prop.setProperty("driver", "com.mysql.jdbc.Driver")
     val jdbcDF = sqlContext.read.jdbc(url,table,prop)
-    jdbcDF.printSchema()
+    jdbcDF.registerTempTable("people")
+
+    sqlContext.sql("select * from people").show()
+
 
 
   }
