@@ -33,7 +33,7 @@ object CSVDemo {
 
     student.head(5).foreach(println)
 
-    print(student.first())
+    println(student.first())
 
     val emailFrame = student.select("email")
 
