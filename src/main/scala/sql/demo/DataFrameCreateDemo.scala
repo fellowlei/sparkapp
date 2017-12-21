@@ -33,9 +33,7 @@ object DataFrameCreateDemo {
     // SQL can be run over a temporary view created using DataFrames
     val results = spark.sql("SELECT name FROM people")
 
-    // The results of SQL queries are DataFrames and support all the normal RDD operations
-    // The columns of a row in the result can be accessed by field index or by field name
-    results.map(attributes => "Name: " + attributes(0)).show()
+    results.show()
 
 
   }

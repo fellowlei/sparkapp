@@ -33,10 +33,6 @@ object DataFrameSqlDemo {
     // or by field name
     teenagersDF.map(teenager => "Name: " + teenager.getAs[String]("name")).show()
 
-    // row.getValuesMap[T] retrieves multiple columns at once into a Map[String, T]
-    teenagersDF.map(teenager => teenager.getValuesMap[Any](List("name", "age"))).collect()
-    // Array(Map("name" -> "Justin", "age" -> 19))
-
 
 
 
