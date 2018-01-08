@@ -13,7 +13,7 @@ object KafkaStream {
   def main(args: Array[String]): Unit = {
     val conf = new SparkConf().setAppName("KafkaStream").setMaster("local[*]")
     val sc =new SparkContext(conf)
-    val ssc =new StreamingContext(sc,Seconds(5)) // 每5秒一个批次
+    val ssc =new StreamingContext(sc,Seconds(2)) // 每5秒一个批次
 
 
     val group = "con-consumer-group"
@@ -30,10 +30,12 @@ object KafkaStream {
     )
 
     //创建DStream，返回接收到的输入数据
-    val topic = Array("test")
+    val topic = Array("ip_collect")
     var stream=KafkaUtils.createDirectStream[String,String](ssc,LocationStrategies.PreferConsistent,ConsumerStrategies.Subscribe[String,String](topic,kafkaParam))
-    stream.map(s =>(s.key(),s.value())).print();
+//    stream.map(s =>(s.key(),s.value())).print();
 
+    val wordCounts = stream.map(x =>(x.value(),1)).reduceByKey(_ + _)
+    wordCounts.print()
     ssc.start();
     ssc.awaitTermination();
 
