@@ -15,7 +15,7 @@ public class KafkaConsumerDemo {
         String topic = "ip_collect";
         // auto commit
         Properties props = new Properties();
-        props.put("bootstrap.servers", "172.28.5.2:9092");
+        props.put("bootstrap.servers", Constants.KAFKA_IP);
         props.put("group.id", "test");
         props.put("enable.auto.commit", "true");
         props.put("auto.commit.interval.ms", "1000");
@@ -25,7 +25,7 @@ public class KafkaConsumerDemo {
         consumer.subscribe(Arrays.asList(topic)); // topic
 
         while (true) {
-            ConsumerRecords<String, String> records = consumer.poll(100);
+            ConsumerRecords<String, String> records = consumer.poll(1000);
             for (ConsumerRecord<String, String> record : records)
                 System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
             System.out.println("========================");

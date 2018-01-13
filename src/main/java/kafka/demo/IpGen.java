@@ -1,4 +1,5 @@
 package kafka.demo;
+import kafka.Constants;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -19,7 +20,7 @@ public class IpGen {
     private static String  pre= "192.168.1.";
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "172.28.5.2:9092");
+        props.put("bootstrap.servers", Constants.KAFKA_IP);
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);

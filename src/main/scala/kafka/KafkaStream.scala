@@ -17,7 +17,8 @@ object KafkaStream {
 
 
     val group = "con-consumer-group"
-    val kafkaIp ="172.28.5.2:9092"
+    val kafkaIp ="127.0.0.1:9092"
+//    val kafkaIp ="172.28.5.2:9092"
 
 //    KafkaUtils
     val kafkaParam = Map(
