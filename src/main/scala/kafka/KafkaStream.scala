@@ -4,6 +4,7 @@ import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.{SparkConf, SparkContext}
+import redis.RedisUtil
 
 /**
   * Created by lulei on 2017/12/19.
@@ -17,7 +18,8 @@ object KafkaStream {
 
 
     val group = "con-consumer-group"
-    val kafkaIp ="127.0.0.1:9092"
+//    val kafkaIp ="127.0.0.1:9092"
+    val kafkaIp ="localhost:9092"
 //    val kafkaIp ="172.28.5.2:9092"
 
 //    KafkaUtils
@@ -31,11 +33,13 @@ object KafkaStream {
     )
 
     //创建DStream，返回接收到的输入数据
-    val topic = Array("ip_collect")
+//    val topic = Array("ip_collect")
+    val topic = Array("mylog")
     var stream=KafkaUtils.createDirectStream[String,String](ssc,LocationStrategies.PreferConsistent,ConsumerStrategies.Subscribe[String,String](topic,kafkaParam))
 //    stream.map(s =>(s.key(),s.value())).print();
 
     val wordCounts = stream.map(x =>(x.value(),1)).reduceByKey(_ + _)
+    RedisUtil.set("name","hello");
     wordCounts.print()
     ssc.start();
     ssc.awaitTermination();
