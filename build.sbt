@@ -15,6 +15,9 @@ libraryDependencies += "org.apache.spark" %% "spark-streaming-kafka-0-10" % "2.2
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.40"
 // https://mvnrepository.com/artifact/redis.clients/jedis
 libraryDependencies += "redis.clients" % "jedis" % "2.9.0"
+// https://mvnrepository.com/artifact/com.alibaba/fastjson
+libraryDependencies += "com.alibaba" % "fastjson" % "1.2.44"
+
 
 
 
