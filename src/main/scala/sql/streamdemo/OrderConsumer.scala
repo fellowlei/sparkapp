@@ -15,11 +15,11 @@ object OrderConsumer {
   def main(args: Array[String]): Unit = {
 
     //每件商品总销售额
-    val orderTotalKey = "app::order::total"
+    val orderTotalKey = "order::total"
     //每件商品上一分钟销售额
-    val oneMinTotalKey = "app::order::product"
+    val oneMinTotalKey = "order::product"
     //总销售额
-    val totalKey = "app::order::all"
+    val totalKey = "order::all"
 
     // 创建 StreamingContext 时间片为1秒
     val conf = new SparkConf().setMaster("local[*]").setAppName("UserClickCountStat")
@@ -57,30 +57,14 @@ object OrderConsumer {
           val price = x._3;
           val jedis = new Jedis("localhost",6379);
           //每个商品销售额累加
-          jedis.hincrBy(orderTotalKey, x._1.toString, x._3.toInt)
+//          jedis.hincrBy(orderTotalKey, x._1.toString, x._3.toLong)
           //上一分钟第每个商品销售额
           jedis.hset(oneMinTotalKey, x._1.toString, x._3.toString)
           //总销售额累加
           jedis.incrBy(totalKey, x._3.toInt)
         })
     ))
-    //输出
-    orders.foreachRDD(x =>
-      x.foreachPartition(partition =>
-        partition.foreach(x => {
 
-          println("id=" + x._1 + " count=" + x._2 + " price=" + x._3)
-          //保存到Redis中
-          val jedis = new Jedis("localhost",6379);
-          //每个商品销售额累加
-          jedis.hincrBy(orderTotalKey, x._1, x._3)
-          //上一分钟第每个商品销售额
-          jedis.hset(oneMinTotalKey, x._1.toString, x._3.toString)
-          //总销售额累加
-          jedis.incrBy(totalKey, x._3)
-
-        })
-      ))
 
 
     ssc.start()

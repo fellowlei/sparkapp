@@ -11,8 +11,11 @@ object RedisUtil {
   }
 
   def queryOrder(): Unit ={
+    val total ="app::order::total";
+    val produce ="app::order::product"
+    val all = "app::order::all";
     val redis = new Jedis("localhost",6379);
-    val keys = Array("app::order::total","app::order::product","app::order::all");
+    val keys = Array(total,produce,all);
     for(key <- keys){
       redis.set(key,key);
     }
@@ -20,5 +23,8 @@ object RedisUtil {
     for(key <- keys){
       println(redis.get(key))
     }
+
+    redis.hincrBy("order::total","aa",1L);
+    println(redis.get("order::total"))
   }
 }
