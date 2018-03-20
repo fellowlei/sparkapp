@@ -41,7 +41,7 @@ object DataFrameTest {
     // 在2.0.0-preview中这行代码创建出的DataFrame, 其实是DataSet[Row]
     val idAgeDS = sqlContext.createDataFrame(idAgeRDDRow, schema)
 
-    sqlContext.createDataset(sc.parallelize(Array(1, 2, 3))).show()
+//    sqlContext.createDataset(sc.parallelize(Array(1, 2, 3))).show()
   }
 
   def main(args: Array[String]): Unit = {

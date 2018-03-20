@@ -120,11 +120,11 @@ object DataFrameTest3 {
 
     //这里需要隐式转换一把
     import sqlContext.implicits._
-    val df = peopleRDD.toDF()
-    df.registerTempTable("people")
-
-    df.show()
-    df.printSchema()
+//    val df = peopleRDD.toDF()
+//    df.registerTempTable("people")
+//
+//    df.show()
+//    df.printSchema()
   }
 
   def main(args: Array[String]): Unit = {
