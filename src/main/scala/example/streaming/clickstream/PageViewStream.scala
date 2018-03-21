@@ -17,6 +17,7 @@ object PageViewStream {
     // Create the context
     val sparkConf = new SparkConf().setAppName("PageViewStream").setMaster("local[*]");
     val ssc = new StreamingContext(sparkConf,Seconds(1))
+    ssc.checkpoint(".checkpointDir")
 
     // Create a ReceiverInputDStream on target host:port and convert each line to a PageView
     val pageViews = ssc.socketTextStream(host, port)
