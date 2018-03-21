@@ -32,21 +32,21 @@ object PageViewGenerator {
                         94117 -> .5)
   val userID = Map((1 to 100).map(_ -> .01): _*)
 
-  def pickFromDistribution[T](inputMap:Map[T,Double]):T = {
+  def pickFromDistribution[T](inputMap: Map[T, Double]): T = {
     val rand = new Random().nextDouble()
     var total = 0.0
-    for((item,prob) <- inputMap){
+    for ((item, prob) <- inputMap) {
       total = total + prob
-      if(total > rand){
+      if (total > rand) {
         return item
       }
     }
     inputMap.take(1).head._1 // Shouldn't get here if probabilities add up to 1.0
   }
 
-  def getNextClickEvent():String= {
+  def getNextClickEvent(): String = {
     val id = pickFromDistribution(userID)
-    val page = pickFromDistribution(page)
+    val page = pickFromDistribution(pages)
     val status = pickFromDistribution(httpStatus)
     val zipCode = pickFromDistribution(userZipCode)
     new PageView(page, status, zipCode, id).toString()
