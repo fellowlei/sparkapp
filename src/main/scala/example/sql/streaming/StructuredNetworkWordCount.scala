@@ -10,7 +10,7 @@ object StructuredNetworkWordCount {
     val host = "localhost"
     val port = 8888
 
-    val spark = SparkSession.builder().appName("StructuredNetworkWordCount").getOrCreate()
+    val spark = SparkSession.builder().appName("StructuredNetworkWordCount").master("local[1]").getOrCreate()
 
     import spark.implicits._
 
@@ -33,7 +33,7 @@ object StructuredNetworkWordCount {
       .format("console")
       .start()
 
-
+    query.awaitTermination()
 
 
   }
