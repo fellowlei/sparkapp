@@ -19,12 +19,16 @@ public class SocketServer {
         Socket socket = server.accept();
         OutputStream outputStream = socket.getOutputStream();
         PrintWriter printWriter = new PrintWriter(outputStream);
-        for(int i=0; i<100; i++){
+        for(int i=0; i<1000; i++){
             if(i % 5 == 0){
-                Thread.sleep(100);
+                Thread.sleep(1000);
+                printWriter.flush();
             }
+            System.out.println(i);
             printWriter.println(i);
+
         }
+        printWriter.flush();
         socket.close();
         server.close();
 
